@@ -107,7 +107,7 @@ open class BaseService(private val baseUrl: String) {
         return baseUrlCopy
     }
 
-    protected inline fun <reified T> getTypeReference(): TypeReference<T> {
+    inline fun <reified T> getTypeReference(): TypeReference<T> {
         return object : TypeReference<T>() {}
     }
 

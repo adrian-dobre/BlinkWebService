@@ -8,20 +8,23 @@ import java.util.*
 
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy::class)
 @JsonIgnoreProperties(ignoreUnknown = true)
-data class SyncModule(
+data class Media (
     val id: Int,
-    val name: String,
-    val onboarded: Boolean,
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssX")
-    val createdAt: Date,
+    val createdAt: Date? = null,
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssX")
-    val updatedAt: Date,
-    val status: String,
-    val serial: String,
-    val fwVersion: String,
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssX")
-    val lastHb: Date,
-    val wifiStrength: Int,
+    val updatedAt: Date? = null,
+    val deleted: Boolean,
+    val device: String,
+    val deviceId: Int,
+    val deviceName: String,
     val networkId: Int,
-    val enableTempAlerts: Boolean
+    val networkName: String,
+    val type: String,
+    val source: String,
+    val watched: Boolean,
+    val partial: Boolean,
+    val thumbnail: String,
+    val media: String,
+    val timeZone: TimeZone
 )

@@ -6,9 +6,11 @@ import com.fasterxml.jackson.databind.annotation.JsonNaming
 
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy::class)
 @JsonIgnoreProperties(ignoreUnknown = true)
-data class Signal(
-    val lfr: Int,
-    val wifi: Int,
-    val temp: Int,
-    val battery: Int
+data class Program (
+    val id: Int,
+    val networkId: Int,
+    val status: String,
+    val name: String,
+    val format: String,
+    val schedule: List<Schedule>
 )

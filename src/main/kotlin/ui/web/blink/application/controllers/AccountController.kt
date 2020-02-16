@@ -3,6 +3,7 @@ package ui.web.blink.application.controllers
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.*
 import ui.web.blink.domain.aggregates.HomeScreen
+import ui.web.blink.domain.aggregates.PagedMediaList
 import ui.web.blink.domain.entities.AccountOptions
 import ui.web.blink.domain.entities.Notifications
 import ui.web.blink.infrastructure.repositories.AccountRepository
@@ -36,5 +37,15 @@ class AccountController {
         @RequestHeader("authToken") authKey: String
     ): Notifications {
         return accountRepository.getNotificationsConfig(authKey, regionId, accountId)
+    }
+
+    @GetMapping("/regions/{regionId}/accounts/{accountId}/media")
+    fun getAccountMediaList(
+        @PathVariable accountId: Int,
+        @PathVariable regionId: String,
+        @RequestParam(required = false) page: Int?,
+        @RequestHeader("authToken") authKey: String
+    ): PagedMediaList {
+        return accountRepository.getMediaList(authKey, regionId, accountId, page ?: 1)
     }
 }

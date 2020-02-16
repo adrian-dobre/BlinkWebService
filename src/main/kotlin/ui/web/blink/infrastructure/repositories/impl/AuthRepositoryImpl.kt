@@ -1,14 +1,13 @@
 package ui.web.blink.infrastructure.repositories.impl
 
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
+import org.springframework.stereotype.Component
+import ui.web.blink.domain.entities.Login
 import ui.web.blink.domain.entities.Session
 import ui.web.blink.infrastructure.helpers.BaseService
 import ui.web.blink.infrastructure.helpers.RequestOptions
 import ui.web.blink.infrastructure.helpers.RequestParams
 import ui.web.blink.infrastructure.repositories.AuthRepository
-import org.springframework.stereotype.Component
-import ui.web.blink.domain.entities.Login
 import javax.annotation.PostConstruct
 
 @Component
