@@ -4,7 +4,9 @@ import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Component
 import ui.web.blink.domain.aggregates.HomeScreen
 import ui.web.blink.domain.aggregates.PagedMediaList
+import ui.web.blink.domain.entities.Account
 import ui.web.blink.domain.entities.AccountOptions
+import ui.web.blink.domain.entities.MotionRegions
 import ui.web.blink.domain.entities.Notifications
 import ui.web.blink.infrastructure.helpers.RegionalBaseService
 import ui.web.blink.infrastructure.helpers.RequestOptions
@@ -20,7 +22,7 @@ class AccountRepositoryImpl : AccountRepository {
         return RegionalBaseService(regionId, blinkUrl).get(
             RegionalBaseService.requestOptionsAuthKey(
                 authKey, RequestOptions(
-                    path = "v1/account/options"
+                    path = "api/v1/account/options"
                 )
             ),
             AccountOptions::class.java
@@ -31,7 +33,7 @@ class AccountRepositoryImpl : AccountRepository {
         return RegionalBaseService(regionId, blinkUrl).get(
             RegionalBaseService.requestOptionsAuthKey(
                 authKey, RequestOptions(
-                    path = "v3/accounts/${accountId}/homescreen"
+                    path = "api/v3/accounts/${accountId}/homescreen"
                 )
             ),
             HomeScreen::class.java
@@ -42,7 +44,7 @@ class AccountRepositoryImpl : AccountRepository {
         return RegionalBaseService(regionId, blinkUrl).get(
             RegionalBaseService.requestOptionsAuthKey(
                 authKey, RequestOptions(
-                    path = "v1/accounts/${accountId}/notifications/configuration"
+                    path = "api/v1/accounts/${accountId}/notifications/configuration"
                 )
             ),
             Notifications::class.java
@@ -59,10 +61,32 @@ class AccountRepositoryImpl : AccountRepository {
                             Pair("since", "1970-01-01T00:00:00 0000")
                         )
                     ),
-                    path = "v1/accounts/${accountId}/media/changed"
+                    path = "api/v1/accounts/${accountId}/media/changed"
                 )
             ),
             PagedMediaList::class.java
+        ).first
+    }
+
+    override fun getAccount(authKey: String, regionId: String): Account {
+        return RegionalBaseService(regionId, blinkUrl).get(
+            RegionalBaseService.requestOptionsAuthKey(
+                authKey, RequestOptions(
+                    path = "user"
+                )
+            ),
+            Account::class.java
+        ).first
+    }
+
+    override fun getAccountNetworkCameraMotionRegions(authKey: String, regionId: String, accountId: Int, networkId: Int, cameraId: Int): MotionRegions {
+        return RegionalBaseService(regionId, blinkUrl).get(
+            RegionalBaseService.requestOptionsAuthKey(
+                authKey, RequestOptions(
+                    path = "api/v1/accounts/${accountId}/networks/${networkId}/cameras/${cameraId}/motion_regions"
+                )
+            ),
+            MotionRegions::class.java
         ).first
     }
 }
