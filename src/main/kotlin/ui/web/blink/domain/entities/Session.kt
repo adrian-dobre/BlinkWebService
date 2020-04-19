@@ -3,8 +3,8 @@ package ui.web.blink.domain.entities
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
-import ui.web.blink.infrastructure.helpers.NetworksDeserializer
-import ui.web.blink.infrastructure.helpers.RegionDeserializer
+import ui.web.blink.infrastructure.helpers.deserializers.NetworksDeserializer
+import ui.web.blink.infrastructure.helpers.deserializers.RegionDeserializer
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class Session(

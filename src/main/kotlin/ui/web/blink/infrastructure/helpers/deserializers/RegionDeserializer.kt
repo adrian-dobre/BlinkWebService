@@ -1,4 +1,4 @@
-package ui.web.blink.infrastructure.helpers
+package ui.web.blink.infrastructure.helpers.deserializers
 
 import com.fasterxml.jackson.core.JsonParser
 import com.fasterxml.jackson.core.ObjectCodec

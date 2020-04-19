@@ -1,7 +1,7 @@
 package ui.web.blink.infrastructure.repositories
 
-import com.github.kittinunf.fuel.core.Response
+import ui.web.blink.infrastructure.helpers.BaseServiceResult
 
 interface MediaRepository {
-    fun getMedia(authKey: String, regionId: String, mediaPath: String): Pair<String, Response>
+    fun getMedia(authKey: String, regionId: String, mediaPath: String): BaseServiceResult<String>
 }

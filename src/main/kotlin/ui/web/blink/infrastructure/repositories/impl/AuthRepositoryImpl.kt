@@ -31,7 +31,7 @@ class AuthRepositoryImpl : AuthRepository {
                 )
             ),
             Session::class.java
-        ).first
+        ).body
     }
 
     override fun logout() {

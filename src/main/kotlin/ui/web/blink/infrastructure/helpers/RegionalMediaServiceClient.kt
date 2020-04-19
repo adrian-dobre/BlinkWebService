@@ -1,6 +1,7 @@
 package ui.web.blink.infrastructure.helpers
 
-class RegionalMediaService(regionId: String, blinkUrl: String) : MediaService("https://rest-${regionId}.${blinkUrl}") {
+class RegionalMediaServiceClient(regionId: String, blinkUrl: String) :
+    BaseService("https://rest-${regionId}.${blinkUrl}", BodyMapper.NONE, BodyMapper.NONE) {
     companion object {
         fun requestOptionsAuthKey(authKey: String, requestOptions: RequestOptions = RequestOptions()): RequestOptions {
             requestOptions.headers["token-auth"] = authKey
