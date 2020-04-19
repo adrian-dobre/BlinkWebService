@@ -14,5 +14,6 @@ data class Signal(
     val temp: Int,
     val battery: Int,
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssX")
-    val updatedAt: Date?
+    val updatedAt: Date?,
+    val batteryState: String?
     )
