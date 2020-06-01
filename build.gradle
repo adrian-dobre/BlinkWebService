@@ -5,8 +5,8 @@ plugins {
     id 'io.spring.dependency-management' version '1.0.8.RELEASE'
 }
 
-group 'org.example'
-version '1.0-SNAPSHOT'
+group 'ui.web.blink'
+version '1.0.0'
 
 sourceCompatibility = 1.8
 

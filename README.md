@@ -1,8 +1,45 @@
-# BlinkWebService
+# Blink Web Service (backend)
 
-<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-<input type="hidden" name="cmd" value="_s-xclick" />
-<input type="hidden" name="hosted_button_id" value="E6MU9855FNXYL" />
-<input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
-<img alt="" border="0" src="https://www.paypal.com/en_RO/i/scr/pixel.gif" width="1" height="1" />
-</form>
+#### Project
+Attempt to build a web portal for Blink (https://blinkforhome.com) products. Currently, the only way to view and 
+administer Blink products is via a mobile app. This project is an attempt to build an open source web portal that will 
+allow a subset of actions to be performed via a computer browser.
+
+#### Description
+This is the backed-end component of the portal. It's a simple app written in Kotlin, using SpringBoot. Unfortunately Blink does not provide API documentation, as a result everything is a result of 
+reverse-engineering the mobile app API calls (I will provide the information I managed to extract). I tested the app
+only on european servers using a Blink XT2 camera (the only one I own).
+The front-end can be found here: https://github.com/adrian-dobre/BlinkWebUI.
+
+#### Build
+In order to build the app, you need Java 1.8 installed on your computer. Steps to build:
+- clone this repo
+- run `./gradlew build bootJar` inside the root directory
+
+A new build will be outputted in `build/libs` directory.
+
+#### Running
+- run `java -jar <path/to/jar> --uiBuildPath=<path/to/ui/build>`
+
+#### Features
+- view the list of recordings
+- play a recording
+- view the list of cameras
+- view the list of networks
+- view the list of blink modules
+
+Note: I was unable to open a live view to the camera, it seems that it uses a proprietary protocol (immis) I could
+not figure it out (as stated before, there is no documentation for 3rd party developers).
+
+#### Roadmap (if there is community interest and time permits)
+- ability to change settings
+- ability to download recordings
+- (maybe) UI improvements
+- cloud (Google Drive) backups of recordings
+- others?!
+
+
+#### Disclaimer
+This work represents a personal effort, developed in my spare time and while I have every intention to further develop
+this solution, I cannot offer any guarantees. However, anybody can just grab the code and do whatever they want with it
+(it is released under GPL v3 license)

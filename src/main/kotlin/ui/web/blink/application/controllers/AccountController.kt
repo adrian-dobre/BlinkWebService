@@ -17,6 +17,7 @@ import ui.web.blink.domain.entities.MotionRegions
 import ui.web.blink.domain.entities.Notifications
 import ui.web.blink.infrastructure.repositories.AccountRepository
 
+
 @CrossOrigin
 @RestController
 class AccountController {
