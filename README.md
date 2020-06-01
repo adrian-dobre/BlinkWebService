@@ -18,8 +18,11 @@ In order to build the app, you need Java 1.8 installed on your computer. Steps t
 
 A new build will be outputted in `build/libs` directory.
 
+#### Releases
+You can download a pre-built release from here: https://drive.google.com/drive/folders/1w6ZteA14Bhb52HeKeLxHJfP0sNiNsaM3?usp=sharing
+
 #### Running
-- run `java -jar <path/to/jar> --uiBuildPath=<path/to/ui/build>`
+- run `java -jar <path/to/jar> --uiBuildPath=<path/to/ui/build> --server.port=80`
 
 #### Features
 - view the list of recordings
