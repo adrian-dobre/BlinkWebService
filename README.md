@@ -34,6 +34,9 @@ You can download a pre-built release from here: https://drive.google.com/drive/f
 Note: I was unable to open a live view to the camera, it seems that it uses a proprietary protocol (immis) I could
 not figure it out (as stated before, there is no documentation for 3rd party developers).
 
+#### UI Demo
+You can see a short [UI Demo here](https://drive.google.com/open?id=1__WDFvufUvQQ_31xT3WVCnsLwtUlsuqz)
+
 #### Roadmap (if there is community interest and time permits)
 - ability to change settings
 - ability to download recordings
