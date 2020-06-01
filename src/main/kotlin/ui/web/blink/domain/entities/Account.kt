@@ -1,17 +1,21 @@
+/*
+ * Copyright (c) 2020 Adrian Dobre - GPL v3 License.
+ *
+ * This file is subject to the terms and conditions defined in
+ * the 'LICENSE.txt' file, which is part of this source code package.
+ */
+
 package ui.web.blink.domain.entities
 
 import com.fasterxml.jackson.annotation.JsonFormat
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
-import com.fasterxml.jackson.databind.PropertyNamingStrategy
-import com.fasterxml.jackson.databind.annotation.JsonNaming
 import java.util.*
 
-@JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy::class)
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class Account (
     val id: Int,
-    val emailVerified: Boolean,
-    val emailVerificationRequired: Boolean,
+    val emailVerified: Boolean?,
+    val emailVerificationRequired: Boolean?,
     val email: String?,
     val timeZone: TimeZone?,
     val owner: Boolean?,
@@ -22,7 +26,7 @@ data class Account (
     val pinFailures: Int?,
     val accountId: Int?,
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssX")
-    val createdAt: Date,
+    val createdAt: Date?,
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssX")
-    val updatedAt: Date
+    val updatedAt: Date?
 )

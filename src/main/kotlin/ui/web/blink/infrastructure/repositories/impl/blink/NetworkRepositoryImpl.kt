@@ -1,4 +1,11 @@
-package ui.web.blink.infrastructure.repositories.impl
+/*
+ * Copyright (c) 2020 Adrian Dobre - GPL v3 License.
+ *
+ * This file is subject to the terms and conditions defined in
+ * the 'LICENSE.txt' file, which is part of this source code package.
+ */
+
+package ui.web.blink.infrastructure.repositories.impl.blink
 
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Component
@@ -54,7 +61,7 @@ class NetworkRepositoryImpl : NetworkRepository {
         ).body
     }
 
-    override fun getNetworkCommandSatus(authKey: String, regionId: String, networkId: Int, commandId: Int): CommandStatus {
+    override fun getNetworkCommandStatus(authKey: String, regionId: String, networkId: Int, commandId: Int): CommandStatus {
         return RegionalBaseServiceClient(regionId, blinkUrl).get(
             RegionalBaseServiceClient.requestOptionsAuthKey(
                 authKey, RequestOptions(

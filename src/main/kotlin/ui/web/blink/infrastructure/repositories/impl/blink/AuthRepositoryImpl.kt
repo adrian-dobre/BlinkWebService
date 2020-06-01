@@ -1,4 +1,11 @@
-package ui.web.blink.infrastructure.repositories.impl
+/*
+ * Copyright (c) 2020 Adrian Dobre - GPL v3 License.
+ *
+ * This file is subject to the terms and conditions defined in
+ * the 'LICENSE.txt' file, which is part of this source code package.
+ */
+
+package ui.web.blink.infrastructure.repositories.impl.blink
 
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Component
@@ -25,7 +32,7 @@ class AuthRepositoryImpl : AuthRepository {
     override fun login(login: Login): Session {
         return baseService.post(
             RequestOptions(
-                path = "v2/login",
+                path = "v4/account/login",
                 params = RequestParams(
                     body = login
                 )

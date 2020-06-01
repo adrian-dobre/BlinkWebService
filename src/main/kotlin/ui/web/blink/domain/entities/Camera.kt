@@ -1,13 +1,17 @@
+/*
+ * Copyright (c) 2020 Adrian Dobre - GPL v3 License.
+ *
+ * This file is subject to the terms and conditions defined in
+ * the 'LICENSE.txt' file, which is part of this source code package.
+ */
+
 package ui.web.blink.domain.entities
 
 import com.fasterxml.jackson.annotation.JsonFormat
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.PropertyNamingStrategy
-import com.fasterxml.jackson.databind.annotation.JsonNaming
 import java.util.*
 
-@JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy::class)
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class Camera(
     val id: Int,
@@ -96,7 +100,7 @@ data class Camera(
     val earlyPirCompatible: Boolean?,
     val earlyNotificationCompatible: Boolean?,
     val nightVisionExposureCompatible: Boolean?,
-    val videoQualitySupport: List<String>,
+    val videoQualitySupport: List<String>?,
     val videoQuality: String?,
     val earlyNotification: Boolean?,
     val nightVisionExposure: Int?,

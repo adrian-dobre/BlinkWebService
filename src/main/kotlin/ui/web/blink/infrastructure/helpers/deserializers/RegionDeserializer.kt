@@ -1,3 +1,10 @@
+/*
+ * Copyright (c) 2020 Adrian Dobre - GPL v3 License.
+ *
+ * This file is subject to the terms and conditions defined in
+ * the 'LICENSE.txt' file, which is part of this source code package.
+ */
+
 package ui.web.blink.infrastructure.helpers.deserializers
 
 import com.fasterxml.jackson.core.JsonParser
@@ -16,12 +23,13 @@ class RegionDeserializer : JsonDeserializer<Any?>() {
     ): Region {
         val objectCodec: ObjectCodec = jsonParser.getCodec()
         val node: JsonNode = objectCodec.readTree(jsonParser)
-        var region: Region = Region("", "");
+        var region: Region = Region("", "", "");
 
         node.fields().forEach {
             region = Region(
                 it.key,
-                it.value.textValue()
+                it.value.textValue(),
+                ""
             )
         }
         return region

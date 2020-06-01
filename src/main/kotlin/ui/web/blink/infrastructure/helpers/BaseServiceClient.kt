@@ -1,7 +1,15 @@
+/*
+ * Copyright (c) 2020 Adrian Dobre - GPL v3 License.
+ *
+ * This file is subject to the terms and conditions defined in
+ * the 'LICENSE.txt' file, which is part of this source code package.
+ */
+
 package ui.web.blink.infrastructure.helpers
 
 import com.fasterxml.jackson.core.type.TypeReference
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.databind.PropertyNamingStrategy
 import com.fasterxml.jackson.dataformat.xml.XmlMapper
 import com.fasterxml.jackson.module.kotlin.KotlinModule
 import com.github.kittinunf.fuel.core.*
@@ -13,8 +21,8 @@ import java.net.URLEncoder
 class BaseServiceUnauthorizedException(message: String?) : Exception(message)
 
 data class RequestParams(
-        var query: MutableMap<String, String> = mutableMapOf(),
-        var body: Any? = null
+    var query: MutableMap<String, String> = mutableMapOf(),
+    var body: Any? = null
 )
 
 data class RequestOptions(
@@ -25,20 +33,21 @@ data class RequestOptions(
 )
 
 data class BaseServiceResult<T>(
-        val response: Response,
-        val body: T
+    val response: Response,
+    val body: T
 )
 
 enum class BodyMapper {
     NONE,
     XML,
-    JSON
+    JSON,
+    JSON_SNAKE
 }
 
 open class BaseService(
     private val baseUrl: String,
-    private val requestBodyMapper: BodyMapper = BodyMapper.JSON,
-    private val responseBodyMapper: BodyMapper = BodyMapper.JSON
+    private val requestBodyMapper: BodyMapper = BodyMapper.JSON_SNAKE,
+    private val responseBodyMapper: BodyMapper = BodyMapper.JSON_SNAKE
 ) {
 
     private val logger: Logger = LoggerFactory.getLogger(BaseService::class.java)
@@ -48,6 +57,11 @@ open class BaseService(
         return when (bodyMapper) {
             BodyMapper.XML -> XmlMapper().registerModule(KotlinModule())
             BodyMapper.JSON -> ObjectMapper().registerModule(KotlinModule())
+            BodyMapper.JSON_SNAKE -> {
+                val bodyMapper = ObjectMapper().registerModule(KotlinModule())
+                bodyMapper.propertyNamingStrategy = PropertyNamingStrategy.SNAKE_CASE
+                bodyMapper
+            }
             else -> null
         }
     }
@@ -77,11 +91,11 @@ open class BaseService(
             { request, response ->
                 if (response.isSuccessful || response.isStatusRedirection) {
                     logger.debug(
-                            "${request.method} resp.:\n$response"
+                        "${request.method} resp.:\n$response"
                     )
                 } else {
                     logger.error(
-                            "${request.method} resp.:\n$response"
+                        "${request.method} resp.:\n$response"
                     )
                 }
                 next(request, response)
@@ -90,9 +104,9 @@ open class BaseService(
     }
 
     private fun <T> handleResponse(
-            response: Result<String, FuelError>,
-            dto: TypeReference<T>,
-            rawResponse: Response
+        response: Result<String, FuelError>,
+        dto: TypeReference<T>,
+        rawResponse: Response
     ): BaseServiceResult<T> {
         when (response) {
             is Result.Failure -> {
@@ -104,20 +118,20 @@ open class BaseService(
 
                 if (bodyData.isEmpty()) {
                     return BaseServiceResult(
-                            response = rawResponse,
-                            body = bodyData as T
+                        response = rawResponse,
+                        body = bodyData as T
                     )
                 }
 
                 return if (mapper != null) {
                     BaseServiceResult(
-                            response = rawResponse,
-                            body = mapper.readValue(bodyData, dto)
+                        response = rawResponse,
+                        body = mapper.readValue(bodyData, dto)
                     )
                 } else {
                     BaseServiceResult(
-                            response = rawResponse,
-                            body = bodyData as T
+                        response = rawResponse,
+                        body = bodyData as T
                     )
                 }
             }
@@ -132,8 +146,8 @@ open class BaseService(
         val headersCopy: MutableMap<String, String> = options.headers.toMutableMap()
 
         val (_, response, result) = request
-                .header(headersCopy)
-                .responseString()
+            .header(headersCopy)
+            .responseString()
 
         if (response.statusCode !in 200..299) {
             if (response.statusCode in listOf(401, 403)) {
@@ -179,13 +193,13 @@ open class BaseService(
         dto: TypeReference<T>
     ): BaseServiceResult<T> {
         return baseRequest(
-                fuel
-                        .post(buildRequestUrl(baseUrl, options))
-                        .timeout(options.timeout)
-                        .timeoutRead(options.timeout)
-                        .body(mapRequestBody(options.params.body)),
-                options,
-                dto
+            fuel
+                .post(buildRequestUrl(baseUrl, options))
+                .timeout(options.timeout)
+                .timeoutRead(options.timeout)
+                .body(mapRequestBody(options.params.body)),
+            options,
+            dto
         )
     }
 
@@ -202,12 +216,12 @@ open class BaseService(
         dto: TypeReference<T>
     ): BaseServiceResult<T> {
         return baseRequest(
-                fuel
-                        .get(buildRequestUrl(baseUrl, options))
-                        .timeout(options.timeout)
-                        .timeoutRead(options.timeout),
-                options,
-                dto
+            fuel
+                .get(buildRequestUrl(baseUrl, options))
+                .timeout(options.timeout)
+                .timeoutRead(options.timeout),
+            options,
+            dto
         )
     }
 
@@ -224,13 +238,13 @@ open class BaseService(
     ): BaseServiceResult<T> {
 
         return baseRequest(
-                fuel
-                        .put(buildRequestUrl(baseUrl, options))
-                        .timeout(options.timeout)
-                        .timeoutRead(options.timeout)
-                        .body(mapRequestBody(options.params.body)),
-                options,
-                dto
+            fuel
+                .put(buildRequestUrl(baseUrl, options))
+                .timeout(options.timeout)
+                .timeoutRead(options.timeout)
+                .body(mapRequestBody(options.params.body)),
+            options,
+            dto
         )
     }
 
@@ -247,13 +261,13 @@ open class BaseService(
     ): BaseServiceResult<T> {
 
         return baseRequest(
-                fuel
-                        .delete(buildRequestUrl(baseUrl, options))
-                        .timeout(options.timeout)
-                        .timeoutRead(options.timeout)
-                        .body(mapRequestBody(options.params.body)),
-                options,
-                dto
+            fuel
+                .delete(buildRequestUrl(baseUrl, options))
+                .timeout(options.timeout)
+                .timeoutRead(options.timeout)
+                .body(mapRequestBody(options.params.body)),
+            options,
+            dto
         )
     }
 }

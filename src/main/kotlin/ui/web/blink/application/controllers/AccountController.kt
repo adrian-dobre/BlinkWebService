@@ -1,3 +1,10 @@
+/*
+ * Copyright (c) 2020 Adrian Dobre - GPL v3 License.
+ *
+ * This file is subject to the terms and conditions defined in
+ * the 'LICENSE.txt' file, which is part of this source code package.
+ */
+
 package ui.web.blink.application.controllers
 
 import org.springframework.beans.factory.annotation.Autowired
@@ -10,6 +17,7 @@ import ui.web.blink.domain.entities.MotionRegions
 import ui.web.blink.domain.entities.Notifications
 import ui.web.blink.infrastructure.repositories.AccountRepository
 
+@CrossOrigin
 @RestController
 class AccountController {
     @Autowired
