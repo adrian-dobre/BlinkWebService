@@ -1,4 +1,16 @@
-# Blink For Home API Documentation
+# BlinkForHome Monitoring System Client API Documentation
+
+Unofficial documentation for the Client API of (Amazon) Blink Monitoring System.
+I am not affiliated with the company in any way - this documentation is strictly "AS-IS".
+The documentaion was obtained by monitoring official iOS app http traffic and organizing it 
+in a somewhat useful way. It does not cover the entire API (such as registering/removing devices or opening a live feed)
+but it covers most of it.
+
+Note: live feed system seems to use a proprieraty protocol (immis://) which I am yet to figure it out, most likely I won't
+be able to, nor, at this time, think it worts the effort.
+
+
+
 
 ## POST https://rest-prod.immedia-semi.com/api/v4/account/login
 
