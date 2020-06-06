@@ -15,26 +15,26 @@ import java.util.*
 data class Command(
     val id: Int,
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssX")
-    val createdAt: Date,
+    val createdAt: Date?,
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssX")
-    val updatedAt: Date,
+    val updatedAt: Date?,
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssX")
-    val executeTime: Date,
+    val executeTime: Date?,
     val command: String,
-    val stateStage: String,
+    val stateStage: String?,
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssX")
     val stageRest: Date?,
-    val stateCondition: String,
-    val attempts: Int,
-    val transaction: String,
-    val playerTransaction: String,
-    val byWhom: String,
-    val diagnostic: Boolean,
-    val debug: String,
-    val target: String,
-    val targetId: Int,
+    val stateCondition: String?,
+    val attempts: Int?,
+    val transaction: String?,
+    val playerTransaction: String?,
+    val byWhom: String?,
+    val diagnostic: Boolean?,
+    val debug: String?,
+    val target: String?,
+    val targetId: Int?,
     val cameraId: Int?,
-    val networkId: Int,
-    val accountId: Int,
-    val syncModuleId: Int
+    val networkId: Int?,
+    val accountId: Int?,
+    val syncModuleId: Int?
 )

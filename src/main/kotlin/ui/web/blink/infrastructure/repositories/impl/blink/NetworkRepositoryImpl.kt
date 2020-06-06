@@ -10,12 +10,10 @@ package ui.web.blink.infrastructure.repositories.impl.blink
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Component
 import ui.web.blink.domain.aggregates.CameraConfig
-import ui.web.blink.domain.entities.Camera
-import ui.web.blink.domain.entities.CommandStatus
-import ui.web.blink.domain.entities.Program
-import ui.web.blink.domain.entities.Signal
+import ui.web.blink.domain.entities.*
 import ui.web.blink.infrastructure.helpers.RegionalBaseServiceClient
 import ui.web.blink.infrastructure.helpers.RequestOptions
+import ui.web.blink.infrastructure.helpers.RequestParams
 import ui.web.blink.infrastructure.repositories.NetworkRepository
 
 @Component
@@ -37,7 +35,7 @@ class NetworkRepositoryImpl : NetworkRepository {
 
     override fun getNetworkCameraConfig(authKey: String, regionId: String, networkId: Int, cameraId: Int): Camera {
         val regionalBaseService = RegionalBaseServiceClient(regionId, blinkUrl)
-        val cameraConfig =  regionalBaseService.get(
+        val cameraConfig = regionalBaseService.get(
             RegionalBaseServiceClient.requestOptionsAuthKey(
                 authKey, RequestOptions(
                     path = "network/${networkId}/camera/${cameraId}/config"
@@ -57,15 +55,40 @@ class NetworkRepositoryImpl : NetworkRepository {
                     path = "network/${networkId}/camera/${cameraId}/signals"
                 )
             ),
-           Signal::class.java
+            Signal::class.java
         ).body
     }
 
-    override fun getNetworkCommandStatus(authKey: String, regionId: String, networkId: Int, commandId: Int): CommandStatus {
+    override fun getNetworkCommandStatus(
+        authKey: String,
+        regionId: String,
+        networkId: Int,
+        commandId: Int
+    ): CommandStatus {
         return RegionalBaseServiceClient(regionId, blinkUrl).get(
             RegionalBaseServiceClient.requestOptionsAuthKey(
                 authKey, RequestOptions(
                     path = "network/${networkId}/command/${commandId}"
+                )
+            ),
+            CommandStatus::class.java
+        ).body
+    }
+
+    override fun updateNetworkCameraSettings(
+        authKey: String,
+        regionId: String,
+        networkId: Int,
+        cameraId: Int,
+        cameraSettings: CameraSettings
+    ): CommandStatus {
+        return RegionalBaseServiceClient(regionId, blinkUrl).post(
+            RegionalBaseServiceClient.requestOptionsAuthKey(
+                authKey, RequestOptions(
+                    path = "network/${networkId}/camera/${cameraId}/update",
+                    params = RequestParams(
+                        body = cameraSettings
+                    )
                 )
             ),
             CommandStatus::class.java

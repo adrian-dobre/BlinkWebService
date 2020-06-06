@@ -11,10 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.*
 import ui.web.blink.domain.aggregates.HomeScreen
 import ui.web.blink.domain.aggregates.PagedMediaList
-import ui.web.blink.domain.entities.Account
-import ui.web.blink.domain.entities.AccountOptions
-import ui.web.blink.domain.entities.MotionRegions
-import ui.web.blink.domain.entities.Notifications
+import ui.web.blink.domain.entities.*
 import ui.web.blink.infrastructure.repositories.AccountRepository
 
 
@@ -77,5 +74,25 @@ class AccountController {
         @RequestHeader("authToken") authKey: String
     ): MotionRegions {
         return accountRepository.getAccountNetworkCameraMotionRegions(authKey, regionId, accountId, networkId, cameraId)
+    }
+
+    @PostMapping("/regions/{regionId}/accounts/{accountId}/networks/{networkId}/state/arm")
+    fun armNetwork(
+        @PathVariable regionId: String,
+        @PathVariable accountId: Int,
+        @PathVariable networkId: Int,
+        @RequestHeader("authToken") authKey: String
+    ): CommandStatus {
+        return accountRepository.armNetwork(authKey, regionId, accountId, networkId)
+    }
+
+    @PostMapping("/regions/{regionId}/accounts/{accountId}/networks/{networkId}/state/disarm")
+    fun disarmNetwork(
+        @PathVariable regionId: String,
+        @PathVariable accountId: Int,
+        @PathVariable networkId: Int,
+        @RequestHeader("authToken") authKey: String
+    ): CommandStatus {
+        return accountRepository.disarmNetwork(authKey, regionId, accountId, networkId)
     }
 }
