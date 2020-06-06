@@ -11,10 +11,7 @@ import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Component
 import ui.web.blink.domain.aggregates.HomeScreen
 import ui.web.blink.domain.aggregates.PagedMediaList
-import ui.web.blink.domain.entities.Account
-import ui.web.blink.domain.entities.AccountOptions
-import ui.web.blink.domain.entities.MotionRegions
-import ui.web.blink.domain.entities.Notifications
+import ui.web.blink.domain.entities.*
 import ui.web.blink.infrastructure.helpers.RegionalBaseServiceClient
 import ui.web.blink.infrastructure.helpers.RequestOptions
 import ui.web.blink.infrastructure.helpers.RequestParams
@@ -94,6 +91,28 @@ class AccountRepositoryImpl : AccountRepository {
                 )
             ),
             MotionRegions::class.java
+        ).body
+    }
+
+    override fun armNetwork(authKey: String, regionId: String, accountId: Int, networkId: Int): CommandStatus {
+        return RegionalBaseServiceClient(regionId, blinkUrl).post(
+            RegionalBaseServiceClient.requestOptionsAuthKey(
+                authKey, RequestOptions(
+                    path = "api/v1/accounts/${accountId}/networks/${networkId}/state/arm"
+                )
+            ),
+            CommandStatus::class.java
+        ).body
+    }
+
+    override fun disarmNetwork(authKey: String, regionId: String, accountId: Int, networkId: Int): CommandStatus {
+        return RegionalBaseServiceClient(regionId, blinkUrl).post(
+            RegionalBaseServiceClient.requestOptionsAuthKey(
+                authKey, RequestOptions(
+                    path = "api/v1/accounts/${accountId}/networks/${networkId}/state/disarm"
+                )
+            ),
+            CommandStatus::class.java
         ).body
     }
 }

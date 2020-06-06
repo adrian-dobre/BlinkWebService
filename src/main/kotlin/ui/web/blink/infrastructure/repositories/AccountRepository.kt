@@ -9,10 +9,7 @@ package ui.web.blink.infrastructure.repositories
 
 import ui.web.blink.domain.aggregates.HomeScreen
 import ui.web.blink.domain.aggregates.PagedMediaList
-import ui.web.blink.domain.entities.Account
-import ui.web.blink.domain.entities.AccountOptions
-import ui.web.blink.domain.entities.MotionRegions
-import ui.web.blink.domain.entities.Notifications
+import ui.web.blink.domain.entities.*
 
 interface AccountRepository {
     fun getOptions(authKey: String, regionId: String): AccountOptions
@@ -21,4 +18,6 @@ interface AccountRepository {
     fun getMediaList(authKey: String, regionId: String, accountId: Int, page: Int): PagedMediaList
     fun getAccount(authKey: String, regionId: String): Account
     fun getAccountNetworkCameraMotionRegions(authKey: String, regionId: String, accountId: Int, networkId: Int, cameraId: Int): MotionRegions
+    fun armNetwork(authKey: String, regionId: String, accountId: Int, networkId: Int): CommandStatus
+    fun disarmNetwork(authKey: String, regionId: String, accountId: Int, networkId: Int): CommandStatus
 }
