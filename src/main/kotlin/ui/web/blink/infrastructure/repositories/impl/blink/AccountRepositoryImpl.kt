@@ -7,11 +7,13 @@
 
 package ui.web.blink.infrastructure.repositories.impl.blink
 
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Component
 import ui.web.blink.domain.aggregates.HomeScreen
 import ui.web.blink.domain.aggregates.PagedMediaList
 import ui.web.blink.domain.entities.*
+import ui.web.blink.infrastructure.helpers.CommonHeaders
 import ui.web.blink.infrastructure.helpers.RegionalBaseServiceClient
 import ui.web.blink.infrastructure.helpers.RequestOptions
 import ui.web.blink.infrastructure.helpers.RequestParams
@@ -22,8 +24,11 @@ class AccountRepositoryImpl : AccountRepository {
     @Value("\${blink.serverUrl}")
     lateinit var blinkUrl: String
 
+    @Autowired
+    lateinit var commonHeaders: CommonHeaders
+
     override fun getOptions(authKey: String, regionId: String): AccountOptions {
-        return RegionalBaseServiceClient(regionId, blinkUrl).get(
+        return RegionalBaseServiceClient(regionId, blinkUrl, commonHeaders).get(
             RegionalBaseServiceClient.requestOptionsAuthKey(
                 authKey, RequestOptions(
                     path = "api/v1/account/options"
@@ -34,7 +39,7 @@ class AccountRepositoryImpl : AccountRepository {
     }
 
     override fun getHomeScreen(authKey: String, regionId: String, accountId: Int): HomeScreen {
-        return RegionalBaseServiceClient(regionId, blinkUrl).get(
+        return RegionalBaseServiceClient(regionId, blinkUrl, commonHeaders).get(
             RegionalBaseServiceClient.requestOptionsAuthKey(
                 authKey, RequestOptions(
                     path = "api/v3/accounts/${accountId}/homescreen"
@@ -45,7 +50,7 @@ class AccountRepositoryImpl : AccountRepository {
     }
 
     override fun getNotificationsConfig(authKey: String, regionId: String, accountId: Int): Notifications {
-        return RegionalBaseServiceClient(regionId, blinkUrl).get(
+        return RegionalBaseServiceClient(regionId, blinkUrl, commonHeaders).get(
             RegionalBaseServiceClient.requestOptionsAuthKey(
                 authKey, RequestOptions(
                     path = "api/v1/accounts/${accountId}/notifications/configuration"
@@ -56,7 +61,7 @@ class AccountRepositoryImpl : AccountRepository {
     }
 
     override fun getMediaList(authKey: String, regionId: String, accountId: Int, page: Int): PagedMediaList {
-        return RegionalBaseServiceClient(regionId, blinkUrl).get(
+        return RegionalBaseServiceClient(regionId, blinkUrl, commonHeaders).get(
             RegionalBaseServiceClient.requestOptionsAuthKey(
                 authKey, RequestOptions(
                     params = RequestParams(
@@ -73,7 +78,7 @@ class AccountRepositoryImpl : AccountRepository {
     }
 
     override fun getAccount(authKey: String, regionId: String): Account {
-        return RegionalBaseServiceClient(regionId, blinkUrl).get(
+        return RegionalBaseServiceClient(regionId, blinkUrl, commonHeaders).get(
             RegionalBaseServiceClient.requestOptionsAuthKey(
                 authKey, RequestOptions(
                     path = "user"
@@ -83,8 +88,14 @@ class AccountRepositoryImpl : AccountRepository {
         ).body
     }
 
-    override fun getAccountNetworkCameraMotionRegions(authKey: String, regionId: String, accountId: Int, networkId: Int, cameraId: Int): MotionRegions {
-        return RegionalBaseServiceClient(regionId, blinkUrl).get(
+    override fun getAccountNetworkCameraMotionRegions(
+        authKey: String,
+        regionId: String,
+        accountId: Int,
+        networkId: Int,
+        cameraId: Int
+    ): MotionRegions {
+        return RegionalBaseServiceClient(regionId, blinkUrl, commonHeaders).get(
             RegionalBaseServiceClient.requestOptionsAuthKey(
                 authKey, RequestOptions(
                     path = "api/v1/accounts/${accountId}/networks/${networkId}/cameras/${cameraId}/motion_regions"
@@ -95,7 +106,7 @@ class AccountRepositoryImpl : AccountRepository {
     }
 
     override fun armNetwork(authKey: String, regionId: String, accountId: Int, networkId: Int): CommandStatus {
-        return RegionalBaseServiceClient(regionId, blinkUrl).post(
+        return RegionalBaseServiceClient(regionId, blinkUrl, commonHeaders).post(
             RegionalBaseServiceClient.requestOptionsAuthKey(
                 authKey, RequestOptions(
                     path = "api/v1/accounts/${accountId}/networks/${networkId}/state/arm"
@@ -106,7 +117,7 @@ class AccountRepositoryImpl : AccountRepository {
     }
 
     override fun disarmNetwork(authKey: String, regionId: String, accountId: Int, networkId: Int): CommandStatus {
-        return RegionalBaseServiceClient(regionId, blinkUrl).post(
+        return RegionalBaseServiceClient(regionId, blinkUrl, commonHeaders).post(
             RegionalBaseServiceClient.requestOptionsAuthKey(
                 authKey, RequestOptions(
                     path = "api/v1/accounts/${accountId}/networks/${networkId}/state/disarm"

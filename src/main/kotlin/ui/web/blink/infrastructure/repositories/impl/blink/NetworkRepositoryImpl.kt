@@ -7,10 +7,12 @@
 
 package ui.web.blink.infrastructure.repositories.impl.blink
 
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Component
 import ui.web.blink.domain.aggregates.CameraConfig
 import ui.web.blink.domain.entities.*
+import ui.web.blink.infrastructure.helpers.CommonHeaders
 import ui.web.blink.infrastructure.helpers.RegionalBaseServiceClient
 import ui.web.blink.infrastructure.helpers.RequestOptions
 import ui.web.blink.infrastructure.helpers.RequestParams
@@ -21,8 +23,11 @@ class NetworkRepositoryImpl : NetworkRepository {
     @Value("\${blink.serverUrl}")
     lateinit var blinkUrl: String
 
+    @Autowired
+    lateinit var commonHeaders: CommonHeaders
+
     override fun getProgramList(authKey: String, regionId: String, networkId: Int): List<Program> {
-        val regionalBaseService = RegionalBaseServiceClient(regionId, blinkUrl)
+        val regionalBaseService = RegionalBaseServiceClient(regionId, blinkUrl, commonHeaders)
         return regionalBaseService.get(
             RegionalBaseServiceClient.requestOptionsAuthKey(
                 authKey, RequestOptions(
@@ -34,7 +39,7 @@ class NetworkRepositoryImpl : NetworkRepository {
     }
 
     override fun getNetworkCameraConfig(authKey: String, regionId: String, networkId: Int, cameraId: Int): Camera {
-        val regionalBaseService = RegionalBaseServiceClient(regionId, blinkUrl)
+        val regionalBaseService = RegionalBaseServiceClient(regionId, blinkUrl, commonHeaders)
         val cameraConfig = regionalBaseService.get(
             RegionalBaseServiceClient.requestOptionsAuthKey(
                 authKey, RequestOptions(
@@ -49,7 +54,7 @@ class NetworkRepositoryImpl : NetworkRepository {
     }
 
     override fun getNetworkCameraSignals(authKey: String, regionId: String, networkId: Int, cameraId: Int): Signal {
-        return RegionalBaseServiceClient(regionId, blinkUrl).get(
+        return RegionalBaseServiceClient(regionId, blinkUrl, commonHeaders).get(
             RegionalBaseServiceClient.requestOptionsAuthKey(
                 authKey, RequestOptions(
                     path = "network/${networkId}/camera/${cameraId}/signals"
@@ -65,7 +70,7 @@ class NetworkRepositoryImpl : NetworkRepository {
         networkId: Int,
         commandId: Int
     ): CommandStatus {
-        return RegionalBaseServiceClient(regionId, blinkUrl).get(
+        return RegionalBaseServiceClient(regionId, blinkUrl, commonHeaders).get(
             RegionalBaseServiceClient.requestOptionsAuthKey(
                 authKey, RequestOptions(
                     path = "network/${networkId}/command/${commandId}"
@@ -82,7 +87,7 @@ class NetworkRepositoryImpl : NetworkRepository {
         cameraId: Int,
         cameraSettings: CameraSettings
     ): CommandStatus {
-        return RegionalBaseServiceClient(regionId, blinkUrl).post(
+        return RegionalBaseServiceClient(regionId, blinkUrl, commonHeaders).post(
             RegionalBaseServiceClient.requestOptionsAuthKey(
                 authKey, RequestOptions(
                     path = "network/${networkId}/camera/${cameraId}/update",
