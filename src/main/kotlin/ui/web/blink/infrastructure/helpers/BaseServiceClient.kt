@@ -46,6 +46,7 @@ enum class BodyMapper {
 
 open class BaseService(
     private val baseUrl: String,
+    private val commonHeaders: CommonHeaders,
     private val requestBodyMapper: BodyMapper = BodyMapper.JSON_SNAKE,
     private val responseBodyMapper: BodyMapper = BodyMapper.JSON_SNAKE
 ) {
@@ -58,9 +59,9 @@ open class BaseService(
             BodyMapper.XML -> XmlMapper().registerModule(KotlinModule())
             BodyMapper.JSON -> ObjectMapper().registerModule(KotlinModule())
             BodyMapper.JSON_SNAKE -> {
-                val bodyMapper = ObjectMapper().registerModule(KotlinModule())
-                bodyMapper.propertyNamingStrategy = PropertyNamingStrategy.SNAKE_CASE
-                bodyMapper
+                val mapper = ObjectMapper().registerModule(KotlinModule())
+                mapper.propertyNamingStrategy = PropertyNamingStrategy.SNAKE_CASE
+                mapper
             }
             else -> null
         }
@@ -143,7 +144,7 @@ open class BaseService(
         options: RequestOptions,
         dto: TypeReference<T>
     ): BaseServiceResult<T> {
-        val headersCopy: MutableMap<String, String> = options.headers.toMutableMap()
+        val headersCopy: MutableMap<String, String> = commonHeaders.addCommonHeaders(options.headers.toMutableMap())
 
         val (_, response, result) = request
             .header(headersCopy)

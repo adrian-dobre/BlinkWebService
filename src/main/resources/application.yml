@@ -1,0 +1,30 @@
+blink:
+    app-info:
+        app_version: '6.0.10 (8280) #881c8812'
+        client_name: Blink iPhone
+        client_type: ios
+        device_identifier: iPhone12,3
+        notification_key: 3d0aaf42e8578768b0f0ac5686425206be8ef777adbdec65302b5a47bde53522
+        os_version: 13.5
+        unique_id: 1A2BA816-8049-4585-9148-27F48E089A60
+    app-headers:
+        accept-language: en-US
+        app-build: IOS_8280
+        locale: en_US
+        user-agent: Blink/8280 CFNetwork/1126 Darwin/19.5.0
+    serverUrl: immedia-semi.com
+logging:
+    level:
+        root: DEBUG
+server:
+    compression:
+        enabled: true
+        mime-types: text/html,text/css,application/javascript,application/json
+    http2:
+        enabled: true
+spring:
+    mvc:
+        throw-exception-if-no-handler-found: true
+    resources:
+        add-mappings: false
+uiBuildPath: /Users/adobre/Projects/Blink Web UI [FE]/dist/
