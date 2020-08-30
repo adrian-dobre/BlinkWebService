@@ -14,6 +14,8 @@ import java.util.*
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class Account (
     val id: Int,
+    val verificationRequired: Boolean?,
+    val newAccount: Boolean?,
     val emailVerified: Boolean?,
     val emailVerificationRequired: Boolean?,
     val email: String?,
