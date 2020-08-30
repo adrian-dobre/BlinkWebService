@@ -7,10 +7,18 @@
 
 package ui.web.blink.infrastructure.repositories
 
+import ui.web.blink.domain.entities.ClientVerification
 import ui.web.blink.domain.entities.Login
+import ui.web.blink.domain.entities.Pin
 import ui.web.blink.domain.entities.Session
 
 interface AuthRepository {
     fun login(login: Login): Session
-    fun logout()
+    fun verifyClient(authKey: String, regionId: String, accountId: Int, clientId: Int, pin: Pin): ClientVerification
+    fun logout(
+        authKey: String,
+        regionId: String,
+        accountId: Int,
+        clientId: Int
+    )
 }

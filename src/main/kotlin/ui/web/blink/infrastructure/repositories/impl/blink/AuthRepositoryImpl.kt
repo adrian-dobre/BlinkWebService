@@ -11,12 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.core.env.Environment
 import org.springframework.stereotype.Component
+import ui.web.blink.domain.entities.ClientVerification
 import ui.web.blink.domain.entities.Login
+import ui.web.blink.domain.entities.Pin
 import ui.web.blink.domain.entities.Session
-import ui.web.blink.infrastructure.helpers.BaseService
-import ui.web.blink.infrastructure.helpers.CommonHeaders
-import ui.web.blink.infrastructure.helpers.RequestOptions
-import ui.web.blink.infrastructure.helpers.RequestParams
+import ui.web.blink.infrastructure.helpers.*
 import ui.web.blink.infrastructure.repositories.AuthRepository
 import javax.annotation.PostConstruct
 
@@ -72,7 +71,39 @@ class AuthRepositoryImpl : AuthRepository {
         ).body
     }
 
-    override fun logout() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun verifyClient(
+        authKey: String,
+        regionId: String,
+        accountId: Int,
+        clientId: Int,
+        pin: Pin
+    ): ClientVerification {
+        return RegionalBaseServiceClient(regionId, blinkUrl, commonHeaders).post(
+            RegionalBaseServiceClient.requestOptionsAuthKey(
+                authKey, RequestOptions(
+                    path = "api/v4/account/${accountId}/client/${clientId}/pin/verify",
+                    params = RequestParams(
+                        body = pin
+                    )
+                )
+            ),
+            ClientVerification::class.java
+        ).body
+    }
+
+    override fun logout(
+        authKey: String,
+        regionId: String,
+        accountId: Int,
+        clientId: Int
+    ) {
+        RegionalBaseServiceClient(regionId, blinkUrl, commonHeaders).post(
+            RegionalBaseServiceClient.requestOptionsAuthKey(
+                authKey, RequestOptions(
+                    path = "api/v4/account/${accountId}/client/${clientId}/logout"
+                )
+            ),
+            Any::class.java
+        ).body
     }
 }

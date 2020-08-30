@@ -8,16 +8,11 @@
 package ui.web.blink.domain.entities
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
-import com.fasterxml.jackson.annotation.JsonProperty
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-data class Session(
-    @JsonProperty("authtoken")
-    val authToken: AuthToken,
-    val account: Account,
-    val client: Client,
-    val region: Region,
-    val lockoutTimeRemaining: Int,
-    val forcePasswordReset: Boolean,
-    val allowPinResendSeconds: Int
+data class ClientVerification (
+    val valid: Boolean,
+    val requireNewPin: Boolean,
+    val message: String,
+    val code: Int
 )

@@ -11,5 +11,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class Client (
-    val id: Int
+    val id: Int,
+    val verificationRequired: Boolean? = false
 )
