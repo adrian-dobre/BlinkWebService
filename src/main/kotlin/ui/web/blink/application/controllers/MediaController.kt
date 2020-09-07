@@ -32,6 +32,6 @@ class MediaController {
         val result = mediaRepository.getMedia(authKey, regionId, mediaPath)
         response.contentType = MediaType.parseMediaType(result.response["Content-Type"].first().toString()).toString()
         response.setContentLengthLong(result.response.contentLength)
-        IOUtils.copy(result.response.body().toStream(), response.outputStream);
+        IOUtils.copy(result.response.body().toStream(), response.outputStream)
     }
 }

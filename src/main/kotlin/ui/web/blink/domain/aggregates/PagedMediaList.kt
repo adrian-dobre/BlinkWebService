@@ -15,5 +15,5 @@ data class PagedMediaList (
     val limit: Int,
     val purgeId: Int,
     val refreshCount: Int,
-    val media: List<Media>
+    var media: List<Media>
 )

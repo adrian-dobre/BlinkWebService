@@ -29,7 +29,7 @@ class NetworkController {
     }
 
     @GetMapping("/regions/{regionId}/networks/{networkId}/cameras/{cameraId}/config")
-    fun getNetworkCameras(
+    fun getNetworkCamera(
         @PathVariable regionId: String,
         @PathVariable networkId: Int,
         @PathVariable cameraId: Int,

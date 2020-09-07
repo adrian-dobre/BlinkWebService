@@ -61,7 +61,7 @@ class AccountRepositoryImpl : AccountRepository {
     }
 
     override fun getMediaList(authKey: String, regionId: String, accountId: Int, page: Int): PagedMediaList {
-        return RegionalBaseServiceClient(regionId, blinkUrl, commonHeaders).get(
+        val mediaList =  RegionalBaseServiceClient(regionId, blinkUrl, commonHeaders).get(
             RegionalBaseServiceClient.requestOptionsAuthKey(
                 authKey, RequestOptions(
                     params = RequestParams(
@@ -75,6 +75,23 @@ class AccountRepositoryImpl : AccountRepository {
             ),
             PagedMediaList::class.java
         ).body
+        // the API sometimes returns duplicates
+        mediaList.media = mediaList.media.distinctBy { it.id }
+        return  mediaList
+    }
+
+    override fun deleteMediaList(authKey: String, regionId: String, accountId: Int, deleteMediaList: DeleteMediaList) {
+        RegionalBaseServiceClient(regionId, blinkUrl, commonHeaders).post(
+            RegionalBaseServiceClient.requestOptionsAuthKey(
+                authKey, RequestOptions(
+                    params = RequestParams(
+                        body = deleteMediaList
+                    ),
+                    path = "api/v1/accounts/${accountId}/media/delete"
+                )
+            ),
+            Any::class.java
+        )
     }
 
     override fun getAccount(authKey: String, regionId: String): Account {
