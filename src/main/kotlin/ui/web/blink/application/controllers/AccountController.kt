@@ -57,6 +57,16 @@ class AccountController {
         return accountRepository.getMediaList(authKey, regionId, accountId, page ?: 1)
     }
 
+    @DeleteMapping("/regions/{regionId}/accounts/{accountId}/media")
+    fun deleteAccountMediaList(
+        @PathVariable accountId: Int,
+        @PathVariable regionId: String,
+        @RequestHeader("authToken") authKey: String,
+        @RequestBody deleteMediaList: DeleteMediaList
+    ) {
+        return accountRepository.deleteMediaList(authKey, regionId, accountId, deleteMediaList)
+    }
+
     @GetMapping("/regions/{regionId}/user")
     fun getAccount(
         @PathVariable regionId: String,
