@@ -11,10 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.core.env.Environment
 import org.springframework.stereotype.Component
-import ui.web.blink.domain.entities.ClientVerification
-import ui.web.blink.domain.entities.Login
-import ui.web.blink.domain.entities.Pin
-import ui.web.blink.domain.entities.Session
+import ui.web.blink.domain.entities.*
 import ui.web.blink.infrastructure.helpers.*
 import ui.web.blink.infrastructure.repositories.AuthRepository
 import javax.annotation.PostConstruct
@@ -50,9 +47,9 @@ class AuthRepositoryImpl : AuthRepository {
     }
 
     override fun login(login: Login): Session {
-        return baseService.post(
+        val apiSession = baseService.post(
             RequestOptions(
-                path = "v4/account/login",
+                path = "v5/account/login",
                 params = RequestParams(
                     body = BlinkLogin(
                         login.email,
@@ -67,8 +64,42 @@ class AuthRepositoryImpl : AuthRepository {
                     )
                 )
             ),
-            Session::class.java
+            ui.web.blink.infrastructure.repositories.impl.blink.dto.Session::class.java
         ).body
+
+        return Session(
+            authToken = AuthToken(apiSession.auth.id, ""),
+            account = Account(
+                id = apiSession.account.accountId!!,
+                verificationRequired = apiSession.account.verificationRequired,
+                newAccount = apiSession.account.newAccount,
+                emailVerified = apiSession.account.emailVerified,
+                emailVerificationRequired = apiSession.account.emailVerificationRequired,
+                email = apiSession.account.email,
+                timeZone = apiSession.account.timeZone,
+                owner = apiSession.account.owner,
+                name = apiSession.account.name,
+                userAccess = apiSession.account.userAccess,
+                tempUnits = apiSession.account.tempUnits,
+                type = apiSession.account.type,
+                pinFailures = apiSession.account.pinFailures,
+                accountId = apiSession.account.accountId,
+                createdAt = apiSession.account.createdAt,
+                updatedAt = apiSession.account.updatedAt
+            ),
+            client = Client(
+                id = apiSession.account.clientId!!,
+                verificationRequired = apiSession.account.clientVerificationRequired
+            ),
+            region = Region(
+                tier = apiSession.account.tier!!,
+                description = "",
+                code = apiSession.account.region!!
+            ),
+            lockoutTimeRemaining = apiSession.lockoutTimeRemaining,
+            forcePasswordReset = apiSession.forcePasswordReset,
+            allowPinResendSeconds = apiSession.allowPinResendSeconds
+        )
     }
 
     override fun verifyClient(
