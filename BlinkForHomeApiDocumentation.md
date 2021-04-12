@@ -12,7 +12,7 @@ be able to, nor, at this time, think it worts the effort.
 
 
 
-## POST https://rest-prod.immedia-semi.com/api/v4/account/login
+## POST https://rest-prod.immedia-semi.com/api/v5/account/login
 
 #### Request Body
  ```
@@ -35,28 +35,45 @@ be able to, nor, at this time, think it worts the effort.
 #### Response Body
  ```
 {
-   "account": {
-      "id": 97998,
-      "verification_required": false,
-      "new_account": false
-   },
-   "client": {
-      "id": 213135,
-      "verification_required": true
-   },
-   "authtoken": {
-      "authtoken": "asdytas7d7asda3rdsda32",
-      "message": "auth"
-   },
-   "region": {
-      "tier": "e001",
-      "description": "Europe",
-      "code": "eu"
-   },
-   "lockout_time_remaining": 0,
-   "force_password_reset": false,
-   "allow_pin_resend_seconds": 60
-} 
+	"account": {
+		"account_id": 97998,
+		"user_id": 97998,
+		"client_id": 403352,
+		"new_account": false,
+		"tier": "e001",
+		"region": "eu",
+		"account_verification_required": false,
+		"phone_verification_required": false,
+		"client_verification_required": true,
+		"country_required": true,
+		"verification_channel": "phone",
+		"user": {
+			"user_id": 97998,
+			"country": null
+		}
+	},
+	"auth": {
+		"token": "asdytas7d7asda3rdsda32"
+	},
+	"phone": {
+		"number": "+40******5041",
+		"last_4_digits": "5041",
+		"country_calling_code": "40",
+		"valid": true
+	},
+	"verification": {
+		"email": {
+			"required": false
+		},
+		"phone": {
+			"required": true,
+			"channel": "sms"
+		}
+	},
+	"lockout_time_remaining": 0,
+	"force_password_reset": false,
+	"allow_pin_resend_seconds": 90
+}
 ```
 
 
