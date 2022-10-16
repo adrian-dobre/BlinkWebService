@@ -8,5 +8,5 @@
 package ui.web.blink.domain.entities
 
 data class DeleteMediaList (
-    val mediaList: List<Int>
+    val mediaList: List<Long>
 )
