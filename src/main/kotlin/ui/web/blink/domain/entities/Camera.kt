@@ -14,7 +14,7 @@ import java.util.*
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class Camera(
-    val id: Int,
+    val id: Long,
     val name: String,
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssX")
     val createdAt: Date,
@@ -23,7 +23,7 @@ data class Camera(
     val status: String,
     val serial: String,
     val fwVersion: String,
-    val networkId: Int,
+    val networkId: Long,
     val type: String,
     val enabled: Boolean,
     val thumbnail: String,
@@ -84,10 +84,10 @@ data class Camera(
     val mfgMainRange: Int?,
     val mfgMezType: String?,
     val mfgMezRange: Int?,
-    val accountId: Int?,
-    val syncModuleId: Int?,
-    val account: Int?,
-    val network: Int?,
+    val accountId: Long?,
+    val syncModuleId: Long?,
+    val account: Long?,
+    val network: Long?,
     val cameraSeq: Int?,
     val lastConnect: CameraLastConnect?,
     val motionAlert: Boolean?,

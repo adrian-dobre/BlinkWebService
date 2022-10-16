@@ -13,7 +13,7 @@ import ui.web.blink.domain.entities.Media
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class PagedMediaList (
     val limit: Int,
-    val purgeId: Int,
+    val purgeId: Long,
     val refreshCount: Int,
     var media: List<Media>
 )

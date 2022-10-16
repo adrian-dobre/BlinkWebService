@@ -13,7 +13,7 @@ import java.util.*
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class Account(
-    val id: Int,
+    val id: Long,
     val verificationRequired: Boolean?,
     val newAccount: Boolean?,
     val emailVerified: Boolean?,
@@ -26,7 +26,7 @@ data class Account(
     val tempUnits: String?,
     val type: String?,
     val pinFailures: Int?,
-    val accountId: Int?,
+    val accountId: Long?,
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssX")
     val createdAt: Date?,
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssX")
@@ -36,5 +36,5 @@ data class Account(
     val accountVerificationRequired: Boolean?,
     val phoneVerificationRequired: Boolean?,
     val clientVerificationRequired: Boolean?,
-    val clientId: Int?
+    val clientId: Long?
 )

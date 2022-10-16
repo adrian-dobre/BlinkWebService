@@ -13,7 +13,7 @@ import java.util.*
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class SyncModule(
-    val id: Int,
+    val id: Long,
     val name: String,
     val onboarded: Boolean,
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssX")
@@ -26,6 +26,6 @@ data class SyncModule(
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssX")
     val lastHb: Date,
     val wifiStrength: Int,
-    val networkId: Int,
+    val networkId: Long,
     val enableTempAlerts: Boolean
 )

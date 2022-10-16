@@ -13,7 +13,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 data class DeviceLimits(
     val totalDevices: Int,
     val owl: Int,
-    val camera: Int,
+    val camera: Long,
     val siren: Int,
     val doorbellButton: Int,
     val chime: Int

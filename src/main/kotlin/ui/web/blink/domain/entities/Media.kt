@@ -13,16 +13,16 @@ import java.util.*
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class Media (
-    val id: Int,
+    val id: Long,
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssX")
     val createdAt: Date? = null,
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssX")
     val updatedAt: Date? = null,
     val deleted: Boolean,
     val device: String,
-    val deviceId: Int,
+    val deviceId: Long,
     val deviceName: String,
-    val networkId: Int,
+    val networkId: Long,
     val networkName: String,
     val type: String,
     val source: String,
