@@ -28,7 +28,7 @@ class NetworksDeserializer : JsonDeserializer<Any?>() {
         node.fields().forEach {
             networks.add(
                 Network(
-                    it.key.toInt(),
+                    it.key.toLong(),
                     it.value.get("name").textValue(),
                     it.value.get("onboarded").booleanValue()
                 )

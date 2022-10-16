@@ -16,7 +16,7 @@ data class CameraLastConnect(
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssX")
     val createdAt: Date,
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssX")
-    val cameraId: Int?,
+    val cameraId: Long?,
     val wifiStrength: Int?,
     val lfrStrength: Int?,
     val batteryVoltage: Int?,
@@ -54,7 +54,7 @@ data class CameraLastConnect(
     val lifetimeCount: Int?,
     val lifetimeDuration: Int?,
     val pirRejections: Int?,
-    val syncModuleId: Int?,
-    val networkId: Int?,
-    val accountId: Int?
+    val syncModuleId: Long?,
+    val networkId: Long?,
+    val accountId: Long?
 )

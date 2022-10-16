@@ -13,7 +13,7 @@ import java.util.*
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class Command(
-    val id: Int,
+    val id: Long,
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssX")
     val createdAt: Date?,
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssX")
@@ -32,9 +32,9 @@ data class Command(
     val diagnostic: Boolean?,
     val debug: String?,
     val target: String?,
-    val targetId: Int?,
-    val cameraId: Int?,
-    val networkId: Int?,
-    val accountId: Int?,
-    val syncModuleId: Int?
+    val targetId: Long?,
+    val cameraId: Long?,
+    val networkId: Long?,
+    val accountId: Long?,
+    val syncModuleId: Long?
 )

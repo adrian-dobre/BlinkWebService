@@ -13,7 +13,7 @@ import java.util.*
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class Network(
-    val id: Int,
+    val id: Long,
     val name: String,
     val onboarded: Boolean,
     val armed: Boolean? = null,

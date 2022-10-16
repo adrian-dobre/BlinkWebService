@@ -11,13 +11,13 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class CommandStatus (
-    val id: Int?,
+    val id: Long?,
     val command: String?,
     val state: String?,
     val complete: Boolean?,
     val status: Int?,
     val statusMsg: String?,
     val statusCode: Int?,
-    val mediaId: Int?,
+    val mediaId: Long?,
     val commands: List<Command>?
 )

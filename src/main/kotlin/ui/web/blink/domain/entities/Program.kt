@@ -11,8 +11,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class Program (
-    val id: Int,
-    val networkId: Int,
+    val id: Long,
+    val networkId: Long,
     val status: String,
     val name: String,
     val format: String,
